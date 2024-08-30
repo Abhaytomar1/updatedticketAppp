@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Tickets.Models.Ticket>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css">
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.noStyle.js"></script>
+    <style>
+        /* Style the table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+            }
+
+            /* Style the search inputs in the table header */
+            .table .search-input {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+        /* Style for hidden filters */
+        .hidden-filters {
+            display: none;
+        }
+
+        .button-container {
+            color: #00008B;
+            margin-bottom: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        h2.mb-4 {
+            color: #add8e6; /* light blue */
+            text-align: center;
+        }
+
+        .button-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 class="mb-4">TICKET LIST</h2>
+        <div class="button-container">
+            <a asp-action="Dashboard" asp-controller="Home" class="btn btn-primary">Go to Dashboard</a>
+        </div>
+    </header>
+
+    <div id="myGrid" class="ag-theme-alpine" style="height: 500px; width: 100%;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var gridOptions = {
+                columnDefs: [
+                    { headerName: 'Ticket No', field: 'ticketNo', sortable: true, filter: true },
+                    { headerName: 'Subject', field: 'subject', sortable: true, filter: true },
+                    { headerName: 'Ticket Body', field: 'ticketBody', sortable: true, filter: true },
+                    { headerName: 'Created At', field: 'createdAt', sortable: true, filter: true },
+                    { headerName: 'Priority', field: 'priority', sortable: true, filter: true },
+                    { headerName: 'Deadline', field: 'deadline', sortable: true, filter: true },
+                    { headerName: 'Status', field: 'status', sortable: true, filter: true },
+                    { headerName: 'Assigned User ID', field: 'assignedUserId', sortable: true, filter: true },  // Added Status column
+                    // {
+                    //     headerName: 'Actions',
+                    //     field: 'id',
+                    //     cellRenderer: function (params) {
+                    //         return '<a href="/Ticket/Edit/' + params.value + '" class="btn btn-warning btn-sm">Edit</a>';
+                    //     }
+                    // }
+                ],
+                rowData: @Html.Raw(Json.Serialize(Model))
+                    };
+
+            var gridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(gridDiv, gridOptions);
+        });
+    </script>
+</body>
+</html>

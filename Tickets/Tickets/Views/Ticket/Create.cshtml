@@ -1,0 +1,96 @@
+﻿@model Tickets.Models.Ticket
+@{
+    Layout=null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATE NEW TICKET</title>
+    <link rel="stylesheet" href="~/css/form-styles.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .button-container {
+            margin-bottom: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        h2.mb-4 {
+            color: #add8e6; /* light blue */
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2 class="mb-4">CREATE NEW TICKET</h2>
+    <div class="button-container">
+            <a asp-action="TeamLeadDashboard" asp-controller="Home" class="btn btn-primary">Go to Dashboard</a>
+    </div>
+    </header>
+    <div class="container mt-5">
+        
+        <form asp-action="Create" method="post">
+            <!-- New User Assignment Field -->
+            <div class="form-group">
+                <label asp-for="AssignedUserId" class="form-label"></label>
+                <select asp-for="AssignedUserId" class="form-control" asp-items="ViewBag.UserOptions">
+                    <option value="">Select User</option>
+                </select>
+                <span asp-validation-for="AssignedUserId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TicketNo" class="form-label"></label>
+                <input asp-for="TicketNo" class="form-control" />
+                <span asp-validation-for="TicketNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" class="form-label"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketBody" class="form-label"></label>
+                <textarea asp-for="TicketBody" class="form-control"></textarea>
+                <span asp-validation-for="TicketBody" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority" class="form-label"></label>
+                <select asp-for="Priority" class="form-control">
+                    <option value="">Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="form-label"></label>
+                <select asp-for="Status" class="form-control" asp-items="ViewBag.StatusOptions">
+                    <option value="">Select Status</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Set Deadline:</label>
+                <input type="date" id="deadline" name="Deadline" class="form-control" />
+                <span asp-validation-for="Deadline" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</body>
+</html>
